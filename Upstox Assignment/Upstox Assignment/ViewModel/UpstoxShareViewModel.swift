@@ -76,7 +76,7 @@ public static func fetchUpstoxSharesUsingJSON(completion: @escaping (_ isSuccess
     }
 
     public static func calculateTotalCurrentValue() -> Float {
-        guard let upstoxSharesArray = userHolding?.userHolding else {
+        guard let upstoxSharesArray = userHolding?.data.userHolding else {
             return 0
         }
 
@@ -88,7 +88,7 @@ public static func fetchUpstoxSharesUsingJSON(completion: @escaping (_ isSuccess
     }
 
     public static func calculateTotalInvestmentValue() -> Float {
-        guard let upstoxSharesArray = userHolding?.userHolding else {
+        guard let upstoxSharesArray = userHolding?.data.userHolding else {
             return 0
         }
 
@@ -100,7 +100,7 @@ public static func fetchUpstoxSharesUsingJSON(completion: @escaping (_ isSuccess
     }
 
     public static func calculateTodaysProfitAndLoss() -> Float {
-        guard let upstoxSharesArray = userHolding?.userHolding else {
+        guard let upstoxSharesArray = userHolding?.data.userHolding else {
             return 0
         }
 

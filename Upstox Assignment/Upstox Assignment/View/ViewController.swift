@@ -120,12 +120,12 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return UpstoxShareViewModel.userHolding?.userHolding.count ?? 0
+        return UpstoxShareViewModel.userHolding?.data.userHolding.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = upstoxSharesTableView.dequeueReusableCell(withIdentifier: "reuseIndentifierForCell") as? UpstoxShareCell,
-              let upstoxShareArray = UpstoxShareViewModel.userHolding?.userHolding else {
+              let upstoxShareArray = UpstoxShareViewModel.userHolding?.data.userHolding else {
             return UITableViewCell()
         }
 
