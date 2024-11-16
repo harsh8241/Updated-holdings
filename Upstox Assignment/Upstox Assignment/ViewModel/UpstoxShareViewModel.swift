@@ -3,13 +3,46 @@ import UIKit
 class UpstoxShareViewModel: NSObject {
 
     // MARK: - Constants
-
+    static let isMockingEnabled = true //api isn't working at times so introduced mocking too, keep it on for api call
     public static var userHolding: UserHolding? = nil
     private static let url = "https://35dee773a9ec441e9f38d5fc249406ce.api.mockbin.io/"
 
     // MARK: - Networking
 
 public static func fetchUpstoxSharesUsingJSON(completion: @escaping (_ isSuccess: Bool) -> Void) {
+    
+    if isMockingEnabled {
+        let mockDataString = """
+        {
+            "data": {
+                "userHolding": [
+                    {"symbol": "MAHABANK", "quantity": 990, "ltp": 38.05, "avgPrice": 35, "close": 40},
+                    {"symbol": "ICICI", "quantity": 100, "ltp": 118.25, "avgPrice": 110, "close": 105},
+                    {"symbol": "SBI", "quantity": 150, "ltp": 550.05, "avgPrice": 501, "close": 590},
+                    {"symbol": "TATA STEEL", "quantity": 200, "ltp": 137, "avgPrice": 110.65, "close": 100.05}
+                ]
+            }
+        }
+        """
+        
+        guard let mockData = mockDataString.data(using: .utf8) else {
+            print("Failed to convert mock data string to Data.")
+            completion(false)
+            return
+        }
+        
+        do {
+            // Decode the mock data
+            Self.userHolding = try JSONDecoder().decode(UserHolding.self, from: mockData)
+            print("Mock data successfully decoded.")
+            completion(true)
+        } catch {
+            print("Failed to decode mock data: \(error.localizedDescription)")
+            completion(false)
+        }
+    }
+    
+    
     guard let url = URL(string: Self.url) else {
         print("Invalid URL: \(Self.url)")
         DispatchQueue.main.async {
